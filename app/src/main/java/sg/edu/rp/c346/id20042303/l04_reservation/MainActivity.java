@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id20042303.l04_reservation;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button cfmBtn;
     Button resetBtn;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,38 @@ public class MainActivity extends AppCompatActivity {
                 smokingArea.setChecked(false);
             }
         });
+
+        rTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                if (rTime.getCurrentHour() >= 21) {
+
+                    rTime.setCurrentHour(20);
+                    rTime.setCurrentMinute(59);
+                    Toast.makeText(MainActivity.this, "We close at 9PM", Toast.LENGTH_SHORT).show();
+
+                } else if (rTime.getCurrentHour() < 8) {
+                    rTime.setCurrentHour(8);
+                    rTime.setCurrentMinute(00);
+                    Toast.makeText(MainActivity.this, "We open at 8AM", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        rDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                if (rDate.getMonth() < 5 && rDate.getYear() == 2020) {
+                    rDate.updateDate(2020, 5, 1);
+                    Toast.makeText(MainActivity.this, "Please choose a Date after today", Toast.LENGTH_SHORT).show();
+                }else if(rDate.getYear() < 2020){
+                    rDate.updateDate(2020, 5, 1);
+                    Toast.makeText(MainActivity.this, "Please choose a Date after today", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
     }
 }
