@@ -52,13 +52,16 @@ public class MainActivity extends AppCompatActivity {
                     String output = "Name: " + name.getText() + "\r";
                     output += "\n" + "Number: " + number.getText();
                     output += "\n" + "Group Size: " + groupsize.getText();
-
                     output += "\n" + "Date: " + rDate.getDayOfMonth() + "/" + (rDate.getMonth() + 1) + "/" + rDate.getYear();
-                    output += "\n" + "Time: " + rTime.getCurrentHour() + ":" + rTime.getCurrentMinute();
+                    if(rTime.getCurrentHour() > 12){
+                        output += String.format("\n Time: %s:%sPM",rTime.getCurrentHour() - 12,rTime.getCurrentMinute());
+                    }else{
+                        output += "\n" + "Time: " + rTime.getCurrentHour() + ":" + rTime.getCurrentMinute() + "AM";
+                    }
                     if (smokingArea.isChecked()) {
-                        output += "\n" + "Smoking Area";
+                        output += "\n" + "Table Area: " + "Smoking Area";
                     } else {
-                        output += "\n" + "Non-Smoking Area";
+                        output += "\n" + "Table Area: " + "Non-Smoking Area";
                     }
                     Toast.makeText(MainActivity.this, output, Toast.LENGTH_LONG).show();
 
