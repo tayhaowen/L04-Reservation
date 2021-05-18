@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                     output += "\n" + "Group Size: " + groupsize.getText();
                     output += "\n" + "Date: " + rDate.getDayOfMonth() + "/" + (rDate.getMonth() + 1) + "/" + rDate.getYear();
                     if(rTime.getCurrentHour() > 12){
-                        output += String.format("\n Time: %s:%sPM",rTime.getCurrentHour() - 12,rTime.getCurrentMinute());
+                        output += "\n" + "Time: " + (rTime.getCurrentHour() - 12) + ":" + rTime.getCurrentMinute().toString() + "PM";
+                    }else if(rTime.getCurrentHour() == 12){
+                        output += "\n" + "Time: " + rTime.getCurrentHour() + ":" + rTime.getCurrentMinute().toString() + "PM";
                     }else{
                         output += "\n" + "Time: " + rTime.getCurrentHour() + ":" + rTime.getCurrentMinute() + "AM";
                     }
